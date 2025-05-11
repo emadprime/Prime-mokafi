@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حاسبة المعدل المكافئ | Prime Student Services</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background: url('logo-prime-background.png') no-repeat center center fixed;
+      background-size: cover;
+      background-color: white;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.9);
+      min-height: 100vh;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .company-name {
+      font-size: 1.5rem;
+      color: #800080;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    h1 {
+      color: #0ba5a4;
+      text-align: center;
+    }
+    .calculator {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(128, 0, 128, 0.3);
+      border: 2px solid #800080;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #800080;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 1.5rem;
+      background-color: #800080;
+      color: white;
+      border: none;
+      padding: 0.7rem;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+      color: #0ba5a4;
+      text-align: center;
+    }
+  @media (max-width: 600px) {
+      .calculator {
+        padding: 1rem;
+        border-radius: 10px;
+        box-shadow: none;
+      }
+      input, select, button {
+        font-size: 1rem;
+      }
+      label {
+        font-size: 1rem;
+      }
+      h1, .company-name {
+        font-size: 1.3rem;
+        text-align: center;
+      }
+    }
+</style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="company-name">Prime Student Services</div>
+    <h1>حاسبة المعدل المكافئ | Equivalent GPA Calculator</h1>
+    <div class="calculator">
+      <label>درجة اللغة الإنجليزية (English Score)</label>
+      <input type="number" id="english" min="0" max="100">
+
+      <label>درجة الرياضيات (Math Score)</label>
+      <input type="number" id="math" min="0" max="100">
+
+      <label>النسبة المئوية لشهادة الثانوية او المعدل (High School Percentage or GPA)</label>
+      <input type="number" id="school" min="0" step="0.01">
+
+      <label>هل هذا المعدل من 4؟ (Is this a GPA out of 4?)</label>
+      <select id="isGPA">
+        <option value="yes">نعم / Yes</option>
+        <option value="no">لا / No</option>
+      </select>
+
+      <label>اختر التخصص (Choose Major)</label>
+      <select id="major">
+        <option value="medicine">طب / Medicine</option>
+        <option value="pharmacy">صيدلة / Pharmacy</option>
+        <option value="engineering">هندسة / Engineering</option>
+      </select>
+
+      <button onclick="calculateGPA()">احسب / Calculate</button>
+      <div class="result" id="result"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculateGPA() {
+      const english = parseFloat(document.getElementById("english").value);
+      const math = parseFloat(document.getElementById("math").value);
+      let school = parseFloat(document.getElementById("school").value);
+      const isGPA = document.getElementById("isGPA").value;
+      const major = document.getElementById("major").value;
+
+      if (isGPA === "yes") {
+        school = (school / 4) * 100;
+      }
+
+      let result = 0;
+
+      if (major === "medicine") {
+        result = (english * 0.05) + (math * 0.05) + (school * 0.90);
+      } else if (major === "pharmacy") {
+        result = (english * 0.15) + (math * 0.15) + (school * 0.70);
+      } else if (major === "engineering") {
+        result = (english * 0.15) + (math * 0.20) + (school * 0.65);
+      }
+
+      document.getElementById("result").innerText = `المعدل المكافئ هو: ${result.toFixed(2)}٪`;
+    }
+  </script>
+</body>
+</html>
